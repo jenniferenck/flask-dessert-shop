@@ -36,7 +36,7 @@ class DessertList:
     def __repr__(self):
         """Nice formatting of dessert list objects in Python shell"""
 
-        pass
+        return f"<DessertList: desserts={self.desserts} next_id={self.next_id}>"
 
     def add(self, name, description, calories):
         """Add a new dessert given dessert data and append to our list"""
