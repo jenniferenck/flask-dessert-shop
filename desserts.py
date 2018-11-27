@@ -49,7 +49,7 @@ class DessertList:
         """Convert dessert list data to a list of dictionaries,
         which will play nice with JSON"""
 
-        pass
+        return {"desserts": self.desserts, "next_id": self.next_id}
 
 
 # make a dessert list and put some desserts in it
