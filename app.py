@@ -16,8 +16,15 @@ def home():
     return render_template("index.html")
 
 
-@app.route("/desserts")
+@app.route("/desserts", methods=["GET", "POST"])
 def show_desserts():
     """Display all desserts"""
-
-    return jsonify(dessert_list.serialize())
+    if request.method == "GET":
+        return jsonify(dessert_list.serialize())
+    else:
+        dessert_list.add(
+            name=request.json["name"],
+            description=request.json["description"],
+            calories=request.json["calories"])
+        dessert = dessert_list.desserts[-1]
+        return jsonify(dessert.serialize())

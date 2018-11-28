@@ -46,4 +46,47 @@ class FlaskTests(TestCase):
             # e.g. 'JSON data of all desserts' should be in the response data,
             # 'Adds a new dessert to our list' should be in the response data,
 
-            # etc.
+    def test_show_desserts(self):
+        """Make sure get request routes to: /desserts"""
+        response = self.client.get('/desserts')
+        self.assertEqual(response.status_code, 200)
+
+        self.assertEqual(
+            response.json,
+            [{
+                "calories": 200,
+                "description": "C is for cookie, that's good enough for me",
+                "id": 1,
+                "name": "Chocolate chip cookie"
+            },
+             {
+                 "calories": 600,
+                 "description": "I'm going to eat all of my feelings",
+                 "id": 2,
+                 "name": "Banana split"
+             },
+             {
+                 "calories": 300,
+                 "description": "Perfect with a cup of coffee",
+                 "id": 3,
+                 "name": "Glazed Donut"
+             }])
+
+    def test_add_dessert(self):
+        """Check for added dessert"""
+
+        response = self.client.post(
+            '/desserts',
+            json={
+                "calories": 200,
+                "description": "C is for cookie, that's good enough for me",
+                "name": "CCP"
+            })
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            response.json, {
+                "calories": 200,
+                "description": "C is for cookie, that's good enough for me",
+                "id": 4,
+                "name": "CCP"
+            })
