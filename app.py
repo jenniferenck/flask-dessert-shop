@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify
 from desserts import dessert_list
 
 from flask_debugtoolbar import DebugToolbarExtension
@@ -14,3 +14,10 @@ def home():
     """Return home page with basic info"""
 
     return render_template("index.html")
+
+
+@app.route("/desserts")
+def show_desserts():
+    """Display all desserts"""
+
+    return jsonify(dessert_list.serialize())
